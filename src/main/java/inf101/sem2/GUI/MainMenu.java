@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import inf101.sem2.game.Game;
+import inf101.sem2.game.games.BlobWars;
 import inf101.sem2.game.games.ConnectFour;
 import inf101.sem2.game.games.Othello;
 import inf101.sem2.game.games.TicTacToe;
@@ -37,6 +38,7 @@ public class MainMenu implements ActionListener {
 	private final JButton playConnectFourButton; // Button to start new 4 in row game
 	private final JButton playTicTacToeButton; // Button to start new TicTacToe game
 	private final JButton playOthelloButton; // Button to start new Othello game
+	private final JButton playBlobWarsButton; // Button to start new Blob Wars game
 	private final JFrame frame;
 	public Game<?> game;
 	public GameGUI gui;
@@ -56,12 +58,13 @@ public class MainMenu implements ActionListener {
 		playTicTacToeButton = addButton(buttons, "Tic-Tac-Toe");
 		playConnectFourButton = addButton(buttons, "Connect Four");
 		playOthelloButton = addButton(buttons, "Othello");
+		playBlobWarsButton = addButton(buttons, "Blob Wars");
 		int numButtons = 3;
 
 		// add buttons to the window
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(buttons);
-		frame.setPreferredSize(new Dimension(400, 40 + numButtons * 120));
+		frame.setPreferredSize(new Dimension(500, 40 + numButtons * 120));
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -106,6 +109,9 @@ public class MainMenu implements ActionListener {
 		}
 		if (e.getSource() == playOthelloButton) {
 			game = new Othello(graphics, players);
+		}
+		if (e.getSource() == playBlobWarsButton) {
+			game = new BlobWars(graphics, players);
 		}
 		if (game == null) {
 			System.err.println("Button not recognized, no game created.");

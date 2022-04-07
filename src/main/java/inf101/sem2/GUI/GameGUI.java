@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import inf101.grid.BlobLocation;
 import inf101.grid.Location;
 import inf101.sem2.game.GameBoard;
 import inf101.sem2.player.GameEndedException;
@@ -143,6 +144,14 @@ public class GameGUI extends Input implements ActionListener, Graphics {
 		List<Location> selectedPanels = getSelectedPanels(1);
 		Location loc = selectedPanels.get(0);
 		return loc;
+	}
+
+	@Override
+	public BlobLocation getBlobLocation() {
+		List<Location> selectedPanels = getSelectedPanels(2);
+		Location fromLoc = selectedPanels.get(0);
+		Location toLoc = selectedPanels.get(1);
+		return new BlobLocation(fromLoc, toLoc);
 	}
 
 	/**

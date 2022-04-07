@@ -1,5 +1,8 @@
 package inf101.sem2.GUI;
 
+import java.sql.Blob;
+
+import inf101.grid.BlobLocation;
 import inf101.grid.Location;
 import inf101.sem2.game.Game;
 
@@ -32,6 +35,10 @@ public abstract class Input {
 	public Integer getColumn() {
 		throw new UnsupportedOperationException(this.name+" does not support Column move");
 	}
+
+	public BlobLocation getBlobLocation() {
+		throw new UnsupportedOperationException(this.name+" does not support BlobLocation move");
+	}
 	
 	public <T> T getMove(Game<T> game) {
 		for(T move : game.getPossibleMoves()) {
@@ -42,6 +49,9 @@ public abstract class Input {
 			// If move type in Game is Integer, return an integer
 			if(move instanceof Integer){
 				return (T) getColumn();
+			}
+			if(move instanceof BlobLocation){
+				return (T) getBlobLocation();
 			}
 			throw new UnsupportedOperationException(this.name+" does not support this type of move");
 		}
