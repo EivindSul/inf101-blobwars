@@ -79,9 +79,6 @@ public class BlobWars extends Game<BlobLocation> {
         return true;
 	}
 
-	private List<BlobLocation> getFlipped(BlobLocation loc) {
-        return null;
-    }
 
     public boolean isOpponent(Location loc) {
 		if (!board.isOnBoard(loc))
@@ -98,9 +95,15 @@ public class BlobWars extends Game<BlobLocation> {
 		if (!validMove(loc))
 			throw new IllegalArgumentException("Cannot make move:\n" + loc);
 		Player current = getCurrentPlayer();
-		ArrayList<Location> toFlip = getFlipTargets(loc);
+        System.out.print("moved");
+		ArrayList<Location> toFlip = getFlipTargets(loc.getLocTo());
 
-		board.set(loc.getLocTo(), getCurrentPlayer());
+        if(this.longMove(loc)){
+            board.movePiece(loc.getLocFrom(), loc.getLocTo());
+        }
+        else {
+            board.set(loc.getLocTo(), getCurrentPlayer());
+        }
 		displayBoard();
 
 		for (Location l : toFlip) {
@@ -109,8 +112,15 @@ public class BlobWars extends Game<BlobLocation> {
 		displayBoard();
 	}
 
-    private ArrayList<Location> getFlipTargets(BlobLocation loc){
-        Location fromLoc = loc.getLocFrom();
+    private boolean longMove(BlobLocation move){
+        if (move.getLocFrom().allNeighbors().contains(move.getLocTo())){
+            return false;
+        }
+        else return true;
+    }
+
+    private ArrayList<Location> getFlipTargets(Location loc){
+        Location fromLoc = loc;
         ArrayList<Location> enemyNeighbors = new ArrayList<Location>();
         for (GridDirection dir : GridDirection.EIGHT_DIRECTIONS) {
             Location neighbor = fromLoc.getNeighbor(dir);
