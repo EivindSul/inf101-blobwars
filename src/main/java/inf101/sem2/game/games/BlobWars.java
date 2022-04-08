@@ -91,19 +91,22 @@ public class BlobWars extends Game<BlobLocation> {
 	}
 
 	@Override
-	public void makeMove(BlobLocation loc) {
-		if (!validMove(loc))
-			throw new IllegalArgumentException("Cannot make move:\n" + loc);
+	public void makeMove(BlobLocation move) {
+		if (!validMove(move))
+			throw new IllegalArgumentException("Cannot make move:\n" + move);
+        Location locFrom = move.getLocFrom();
+        Location locTo = move.getLocTo();
 		Player current = getCurrentPlayer();
         System.out.print("moved");
-		ArrayList<Location> toFlip = getFlipTargets(loc.getLocTo());
+		ArrayList<Location> toFlip = getFlipTargets(locTo);
 
-        if(this.longMove(loc)){
-            board.movePiece(loc.getLocFrom(), loc.getLocTo());
+        if(this.longMove(move)){
+            board.movePiece(locFrom, locTo);
         }
         else {
-            board.set(loc.getLocTo(), getCurrentPlayer());
+            board.set(locTo, current);
         }
+
 		displayBoard();
 
 		for (Location l : toFlip) {
@@ -120,10 +123,10 @@ public class BlobWars extends Game<BlobLocation> {
     }
 
     private ArrayList<Location> getFlipTargets(Location loc){
-        Location fromLoc = loc;
+        Location location = loc;
         ArrayList<Location> enemyNeighbors = new ArrayList<Location>();
         for (GridDirection dir : GridDirection.EIGHT_DIRECTIONS) {
-            Location neighbor = fromLoc.getNeighbor(dir);
+            Location neighbor = location.getNeighbor(dir);
             if (isOpponent(neighbor)){
                 enemyNeighbors.add(neighbor);
             }
