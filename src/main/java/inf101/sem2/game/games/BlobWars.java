@@ -1,6 +1,7 @@
 package inf101.sem2.game.games;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import inf101.grid.BlobLocation;
@@ -67,15 +68,23 @@ public class BlobWars extends Game<BlobLocation> {
 	}
 
 	@Override
-	public boolean validMove(BlobLocation loc) {
-		if (!board.canPlace(loc.getLocTo()))
+	public boolean validMove(BlobLocation move) {
+		Location locFrom = move.getLocFrom();
+		Location locTo = move.getLocTo();
+
+		if (!board.isOnBoard(locFrom) || !board.isOnBoard(locTo)){
 			return false;
-        if (((Math.abs(loc.getLocFrom().row) - Math.abs(loc.getLocTo().row) > 2) || (Math.abs(loc.getLocFrom().col) - Math.abs(loc.getLocTo().col) > 2))){
+		}
+		if (!board.canPlace(locTo)){
+			return false;
+		}
+		if (locFrom.absoluteDistanceTo(locTo) > 2){
+			return false;
+		}
+        if (!(board.get(locFrom) == getCurrentPlayer())) {
             return false;
         }
-        if (!(board.get(loc.getLocFrom()) == getCurrentPlayer())) {
-            return false;
-        }
+
         return true;
 	}
 
@@ -96,7 +105,7 @@ public class BlobWars extends Game<BlobLocation> {
         Location locFrom = move.getLocFrom();
         Location locTo = move.getLocTo();
 		Player current = getCurrentPlayer();
-		List<Location> toFlip = getFlipTargets(locTo);
+		List<Location> toFlip = getOpponentNeighbors(locTo);
 
         if(this.isLongMove(move)){
             board.movePiece(locFrom, locTo);
@@ -120,9 +129,9 @@ public class BlobWars extends Game<BlobLocation> {
         else return true;
     }
 
-    private List<Location> getFlipTargets(Location loc){
+    private List<Location> getOpponentNeighbors(Location loc){
         Location location = loc;
-        ArrayList<Location> enemyNeighbors = new ArrayList<Location>();
+        List<Location> enemyNeighbors = new ArrayList<Location>();
         for (GridDirection dir : GridDirection.EIGHT_DIRECTIONS) {
             Location neighbor = location.getNeighbor(dir);
             if (isOpponent(neighbor)){
@@ -150,31 +159,27 @@ public class BlobWars extends Game<BlobLocation> {
 		return nPlayerPieces - otherPiecesSum;
 	}
 
-	// Got help from Brage Aasen, 
-	// TODO funker ikke for 2 steg
+	// Got help from Brage Aasen,
 	@Override
 	public List<BlobLocation> getPossibleMoves() {
-		ArrayList<BlobLocation> moves = new ArrayList<>();
+		List<BlobLocation> moves = new ArrayList<>();
 		for (Location fromLoc : board.locations()) {
-            for (GridDirection dir : GridDirection.EIGHT_DIRECTIONS) {
-                Location toLoc = fromLoc.getNeighbor(dir);
+			Collection<Location> neighbors1 = fromLoc.allNeighbors();
+			for (Location toLoc : neighbors1){
                 BlobLocation moved = new BlobLocation(fromLoc, toLoc);
                 if (validMove(moved)) {
                     moves.add(moved);
                 }
-                // for (GridDirection dir2 : GridDirection.EIGHT_DIRECTIONS) {
-                //     toLoc = fromLoc.getNeighbor(dir2);
-                //     BlobLocation moved2 = new BlobLocation(fromLoc, toLoc);
-                //     if (moves.contains(moved2)) {
-                //         continue;
-                //     }
-                //     if (validMove(moved2)){
-                //         moves.add(moved2);
-                //     }
-                // }
-            }
+				Collection<Location> neighbors2 = fromLoc.allNeighbors();
+
+				for (Location toLoc2 : neighbors2){
+					moved = new BlobLocation(fromLoc, toLoc2);
+					if (validMove(moved)) {
+						moves.add(moved);
+					}
+				}
+			}
 		}
 		return moves;
 	}
-
 }

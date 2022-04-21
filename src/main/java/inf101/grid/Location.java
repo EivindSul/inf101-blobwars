@@ -2,6 +2,7 @@ package inf101.grid;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * This class represents a Location on a grid.
@@ -48,6 +49,18 @@ public class Location {
 	 */
 	public int gridDistanceTo(Location loc) {
 		return Math.abs(row - loc.row) + Math.abs(col - loc.col);
+	}
+
+	public int absoluteDistanceTo(Location loc) {
+		int rowDistance = Math.abs(row - loc.row);
+		int colDistance = Math.abs(col - loc.col);
+
+		if (rowDistance < colDistance){
+			return colDistance;
+		}
+		else {
+			return rowDistance;
+		}
 	}
 
 	/**
