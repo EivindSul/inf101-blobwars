@@ -59,7 +59,7 @@ public class MainMenu implements ActionListener {
 		playConnectFourButton = addButton(buttons, "Connect Four");
 		playOthelloButton = addButton(buttons, "Othello");
 		playBlobWarsButton = addButton(buttons, "Blob Wars");
-		int numButtons = 3;
+		int numButtons = 4;
 
 		// add buttons to the window
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

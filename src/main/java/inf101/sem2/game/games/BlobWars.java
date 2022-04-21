@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inf101.grid.BlobLocation;
-import inf101.grid.Grid;
+// import inf101.grid.Grid;
 import inf101.grid.GridDirection;
 import inf101.grid.Location;
 import inf101.sem2.GUI.Graphics;
@@ -79,7 +79,6 @@ public class BlobWars extends Game<BlobLocation> {
         return true;
 	}
 
-
     public boolean isOpponent(Location loc) {
 		if (!board.isOnBoard(loc))
 			return false;
@@ -97,10 +96,9 @@ public class BlobWars extends Game<BlobLocation> {
         Location locFrom = move.getLocFrom();
         Location locTo = move.getLocTo();
 		Player current = getCurrentPlayer();
-        System.out.print("moved");
-		ArrayList<Location> toFlip = getFlipTargets(locTo);
+		List<Location> toFlip = getFlipTargets(locTo);
 
-        if(this.longMove(move)){
+        if(this.isLongMove(move)){
             board.movePiece(locFrom, locTo);
         }
         else {
@@ -115,14 +113,14 @@ public class BlobWars extends Game<BlobLocation> {
 		displayBoard();
 	}
 
-    private boolean longMove(BlobLocation move){
+    private boolean isLongMove(BlobLocation move){
         if (move.getLocFrom().allNeighbors().contains(move.getLocTo())){
             return false;
         }
         else return true;
     }
 
-    private ArrayList<Location> getFlipTargets(Location loc){
+    private List<Location> getFlipTargets(Location loc){
         Location location = loc;
         ArrayList<Location> enemyNeighbors = new ArrayList<Location>();
         for (GridDirection dir : GridDirection.EIGHT_DIRECTIONS) {
@@ -133,28 +131,6 @@ public class BlobWars extends Game<BlobLocation> {
         }
         return enemyNeighbors;
     }
-
-	// private List<Location> getFlipped(BlobLocation loc) {
-	// 	List<Location> flipped = new ArrayList<Location>();
-	// 	for (GridDirection dir : GridDirection.EIGHT_DIRECTIONS) {
-	// 		flipped.addAll(getFlipped(loc, dir));
-	// 	}
-	// 	return flipped;
-	// }
-
-	// private List<Location> getFlipped(BlobLocation loc, GridDirection dir) {
-	// 	List<Location> flipped = new ArrayList<Location>();
-	// 	Location target = loc.getNeighbor(dir);
-	// 	while (isOpponent(target)) {
-	// 		flipped.add(target);
-	// 		target = target.getNeighbor(dir);
-	// 	}
-
-	// 	if (board.isOnBoard(target) && getCurrentPlayer().equals(board.get(target)))
-	// 		return flipped;
-	// 	else
-	// 		return new ArrayList<Location>();
-	// }
 
 	@Override
 	public void restart() {
@@ -174,6 +150,8 @@ public class BlobWars extends Game<BlobLocation> {
 		return nPlayerPieces - otherPiecesSum;
 	}
 
+	// Got help from Brage Aasen, 
+	// TODO funker ikke for 2 steg
 	@Override
 	public List<BlobLocation> getPossibleMoves() {
 		ArrayList<BlobLocation> moves = new ArrayList<>();
@@ -184,29 +162,19 @@ public class BlobWars extends Game<BlobLocation> {
                 if (validMove(moved)) {
                     moves.add(moved);
                 }
-                for (GridDirection dir2 : GridDirection.EIGHT_DIRECTIONS) {
-                    toLoc = fromLoc.getNeighbor(dir);
-                    BlobLocation moved2 = new BlobLocation(fromLoc, toLoc);
-                    if (moves.contains(moved2)) {
-                        continue;
-                    }
-                    if (validMove(moved2)){
-                        moves.add(moved2);
-                    }
-                    
-                }
+                // for (GridDirection dir2 : GridDirection.EIGHT_DIRECTIONS) {
+                //     toLoc = fromLoc.getNeighbor(dir2);
+                //     BlobLocation moved2 = new BlobLocation(fromLoc, toLoc);
+                //     if (moves.contains(moved2)) {
+                //         continue;
+                //     }
+                //     if (validMove(moved2)){
+                //         moves.add(moved2);
+                //     }
+                // }
             }
 		}
 		return moves;
 	}
-	// @Override
-	// public List<BlobLocation> getPossibleMoves() {
-	// 	ArrayList<Location> moves = new ArrayList<>();
-	// 	for (Location loc : board.locations()) {
-	// 		if (validMove(loc)) {
-	// 			moves.add(loc);
-	// 		}
-	// 	}
-	// 	return moves;
-	// }
+
 }
