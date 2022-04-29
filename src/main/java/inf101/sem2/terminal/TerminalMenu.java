@@ -58,6 +58,7 @@ public class TerminalMenu {
 			case 2:
 				System.out.println("Type a number to choose AI difficulty\n(Type 0 to get Dumb Player)");
 				int aiDifficultyChoice = TerminalInput.readInt(new Scanner(System.in));
+				// String aiDifficultyChoice = new Scanner(System.in);
 				if(aiDifficultyChoice == 0){
 					System.out.println("Adding Dumb Player...");
 					players.add(new DumbPlayer('O'));
@@ -65,6 +66,7 @@ public class TerminalMenu {
 					System.out.println("Adding AlphaBeta Player level " + aiDifficultyChoice);
 					players.add(new AlphaBetaPlayer('O', aiDifficultyChoice));
 				}
+				// players.add(new DumbPlayer('O'));
 
 				break;
 			default:

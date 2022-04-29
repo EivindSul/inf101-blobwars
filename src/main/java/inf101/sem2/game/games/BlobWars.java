@@ -15,6 +15,9 @@ import inf101.sem2.player.Player;
 
 public class BlobWars extends Game<BlobLocation> {
 
+	// This class name could have been more descriptive, too bad!
+	// Could for example be used to move chess pieces, so it would be more logical to call it move or fromToLocation
+
 	public BlobWars(Graphics graphics, Player p1, Player p2) {
 		super(new GameBoard(8, 8), graphics);
 		addPlayer(p1);
