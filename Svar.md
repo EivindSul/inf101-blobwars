@@ -2,6 +2,8 @@
 
 *I denne filen legger du inn svar på spørsmålene som stilles i oppgaveteksten, eventuelt kommentarer og informasjon om kreative løsninger*
 
+Samarbeidet med:
+
    
 ## Oppgave 1
 (skriv svar her)

@@ -26,6 +26,7 @@ import inf101.sem2.player.Player;
 import inf101.sem2.player.RestartException;
 import inf101.sem2.player.ai.AlphaBetaPlayer;
 import inf101.sem2.player.ai.DumbPlayer;
+import inf101.sem2.player.ai.RandomPlayer;
 import inf101.sem2.player.human.GuiPlayer;
 
 /**
@@ -139,7 +140,7 @@ public class MainMenu implements ActionListener {
 		} else {
 			// make AI
 
-			String[] possibilities = { "Dumb Player", "AlphaBeta level 0", "AlphaBeta level 5", "AlphaBeta level 10", "AlphaBeta level 15", "AlphaBeta level 20", "AlphaBeta level 25" };
+			String[] possibilities = { "Random", "Dumb Player", "AlphaBeta level 0", "AlphaBeta level 5", "AlphaBeta level 10", "AlphaBeta level 15", "AlphaBeta level 20", "AlphaBeta level 25" };
 			String s = (String) JOptionPane.showInputDialog(
 					null,
 					"Welcome:\n" + "Select AI difficulty",
@@ -152,6 +153,10 @@ public class MainMenu implements ActionListener {
 			if ((s != null) && (s.length() > 0)) {
 				System.out.println("Received " + s);
 				switch (s) {
+					case "Random":
+						System.out.println("creating new RandomPlayer...");
+						players.add(new RandomPlayer('O'));
+						break;
 					case "Dumb Player":
 						System.out.println("creating new DumbPlayer...");
 						players.add(new DumbPlayer('O'));
