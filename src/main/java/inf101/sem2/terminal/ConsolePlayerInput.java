@@ -4,6 +4,7 @@ import static inf101.sem2.terminal.TerminalInput.readInt;
 
 import java.util.Scanner;
 
+import inf101.grid.BlobLocation;
 import inf101.grid.Location;
 import inf101.sem2.GUI.Input;
 import inf101.sem2.game.Game;
@@ -45,6 +46,12 @@ public class ConsolePlayerInput extends Input {
 		int row = readInt(sc);
 		int col = readInt(sc);
 		return new Location(row, col);
+	}
+
+	public BlobLocation getBlobLocation(){
+		Location fromLoc = getLocation("Move from...");
+		Location toLoc = getLocation("Move to...");
+		return new BlobLocation(fromLoc, toLoc);
 	}
 
 	@Override

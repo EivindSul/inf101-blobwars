@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import inf101.sem2.game.Game;
+import inf101.sem2.game.games.BlobWars;
 import inf101.sem2.game.games.ConnectFour;
 import inf101.sem2.game.games.Othello;
 import inf101.sem2.game.games.TicTacToe;
@@ -17,7 +18,7 @@ public class TerminalMenu {
 
 	public static Game<?> selectGame(ArrayList<Player> players) {
 		System.out.println("Which game do you wish to play?");
-		System.out.println("Press 1 for TicTacToe, 2 for Connect 4 and 3 for Othello");
+		System.out.println("Press 1 for TicTacToe, 2 for Connect 4, 3 for Othello and 4 for Blob Wars");
 		Game<?> game;
 		while (true) {
 			int choice = TerminalInput.readInt(sc);
@@ -30,6 +31,9 @@ public class TerminalMenu {
 					break;
 				case 3:
 					game = new Othello(new TerminalGraphics(), players.get(0), players.get(1));
+					break;
+				case 4:
+					game = new BlobWars(new TerminalGraphics(), players.get(0), players.get(1));
 					break;
 				default:
 					System.err.println("Unexpected value: " + choice);

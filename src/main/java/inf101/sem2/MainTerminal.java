@@ -22,5 +22,4 @@ public class MainTerminal {
 			done = TerminalMenu.isDone();
 		}
 	}
-
 }
