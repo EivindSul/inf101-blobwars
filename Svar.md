@@ -14,6 +14,52 @@ Debugging i BlobWars.
    
 ## Oppgave 1
 
+*Viktige klasser*
+Viktige klasser er blant annet 
+- Grid, siden alle spillene er basert på strukturen og metodene i Grid.
+- Location, siden alle spillene bruker Location til å referere til brettet.
+- GameGUI, eller alternativt ConsolePlayerInput, siden det går ikke an å spille uten en klasse til å håndtere input
+- Naturligvis Main-klassene, siden noe må initialisere spillet. 
+
+Mange av de andre klassene kunne blitt inkludert i disse, selv om det da hadde blitt repetitiv og uoversiktlig kode. 
+
+*Begreper*
+- Abstraction brukes i IGrid, siden dette er et interface. Game er en abstrakt klasse. Graphics er et interface. Input og TerminalInput er abstrakte klasser. AbstractPlayer er abstrakt. Player er et interface. 
+
+- Encapsulation brukes over hele programmet. Lettest å notere seg er i BlobLocation, der man henter fromLoc og toLoc ved getter-metoder mange ganger i løpet av Blob Wars spillet. Selve dataen er satt til private, men getter-metodene er public. For eksempel BlobWars.score er også satt til public, selv om det implementert noe teller i gui'en eller terminalen. (Score telles for å bestemme vinner, da.)
+
+- Inheritance brukes ved at klasser extender en annen klasse. For eksempel i AI implementeringen, der de forskjellige AI'ene utvider AbstractPlayer. 
+
+- Composition brukes mellom MainMenu og Game til å starte opp spillet. 
+
+- Polymorphism er i Game.java, siden det er en generisk klasse.
+
+*Andre spill*
+- 4 på rad kan enkelt utvides til så stort man har lyst til. 
+
+- Sjakk kan veldig enkelt implementeres, og kan bruke BlobLocation for å håndtere input. Det trenger da en ny klasse for brikkene, men kan bruke mange av klassene som allerede finnes. 
+
+- Tetris er bygd på et grid, det kan rimelig lett implementeres. 
+
+- Tredimensjonale spill kan ikke bygges på samme strukturen. 
+
+- Spill som krever et større kart enn det som vises begynner å bli vanskelig å implementere. For eksempel Super Mario, Mario kart, Pokemon, osv. 
+
+*SOLID-prinsippene*
+- Single Responibility priciple:
+    BlobLocation har kun et ansvar, som er å relatere to plasseringer med hverandre. Det eneste som skjer i klassen er at man kan hente ut hver plassering. 
+
+- Open-Closed Principle:
+    Man vil aldri endre på AbstractPlayer, men den kan utvides ved arv. Samme med de forskjellige spillene, de endrer ikke på Game.java. 
+
+- Liskov Substitution Principle:
+    Man kan bruke to Location-objekter i stedet for en BlobLocation over alt untatt der input hentes. Der kunne den vært en liste med Locations da, så BlobLocation kan utelates. 
+
+- Interface Segregation Principle:
+    De forskjellige spillene følger dette prinsippet. Det gir mening at metoder som for eksempel sjekker om en brikke er på brettet er tilknyttet brettet, men for eksempel hvordan flytting av brikker fungerer er individuelt i hvert spill. Derfor finnes den ene funskjonen i GameBoard, men ikke den andre.
+
+- Dependency Inversion Principle:
+    Dette gjelder blant annet på forholdet mellom Game og spillene. Å legge til et nytt spill krever ikke endring i Game.java, så lenge spillet er i samme kategori som de andre spillene. For eksempel sjakk kan legges til uten å røre koden, fordi Game er helt uavhengig av hva som vil stå i sjakk.java.
 
 
 ## Oppgave 2
