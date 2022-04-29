@@ -98,56 +98,70 @@ class BlobWarsTest extends TestGame{
 	}
 	
 	
-	// @Test
-	// void testCopy() {
-	// 	TestGame.testCopy(game);
-	// 	assertTrue(Arrays.equals("test".getBytes(),"test".getBytes()));
-	// }
+	@Test
+	void testCopy() {
+		TestGame.testCopy(game);
+		assertTrue(Arrays.equals("test".getBytes(),"test".getBytes()));
+	}
 	
-	// @Test
-	// void testGameOver() {
-	// 	//D3 -> 3,2
-	// 	//C5 -> 2,4
-	// 	//D6 -> 3,5
-	// 	//E3 -> 4,2
-	// 	//B4 -> 1,3
-	// 	//C3 -> 2,2
-	// 	//D2 -> 3,1
-	// 	//C4 -> 2,3
-	// 	//F4 -> 5,3
-		
-	// 	assertEquals(player1,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(4, 2));
-	// 	game.nextPlayer();
-	// 	assertEquals(player2,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(5, 4));
-	// 	game.nextPlayer();
-	// 	assertEquals(player1,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(4, 5));
-	// 	game.nextPlayer();
-	// 	assertEquals(player2,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(3, 2));
-	// 	game.nextPlayer();
-	// 	assertEquals(player1,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(6, 3));
-	// 	game.nextPlayer();
-	// 	assertEquals(player2,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(5, 2));
-	// 	game.nextPlayer();
-	// 	assertEquals(player1,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(4, 1));
-	// 	game.nextPlayer();
-	// 	assertEquals(player2,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(5, 3));
-	// 	assertFalse(game.gameOver());
-	// 	game.nextPlayer();
-	// 	assertEquals(player1,game.getCurrentPlayer());
-	// 	game.makeMove(new Location(2, 3));
-	// 	game.nextPlayer();
-	// 	assertTrue(game.gameOver());
-	// 	assertEquals(13, game.score(player1));
-	// 	assertEquals(-13, game.score(player2));
-	// }
+	@Test
+	void testGameOver() {
+
+    Location fromLoc = new Location(0, 0);
+    Location toLoc = new Location(2, 0);
+	BlobLocation move = new BlobLocation(fromLoc, toLoc);
+	assertTrue(game.validMove(move));
+	game.makeMove(move);
+	game.nextPlayer();
+	assertEquals(player2,game.getCurrentPlayer());
+    assertFalse(game.gameOver());
+
+    fromLoc = new Location(7, 7);
+    toLoc = new Location(7, 5);
+	move = new BlobLocation(fromLoc, toLoc);
+	assertTrue(game.validMove(move));
+	game.makeMove(move);
+	game.nextPlayer();
+	assertEquals(player1,game.getCurrentPlayer());
+    assertFalse(game.gameOver());
+
+    fromLoc = new Location(2, 0);
+    toLoc = new Location(4, 0);
+	move = new BlobLocation(fromLoc, toLoc);
+	assertTrue(game.validMove(move));
+	game.makeMove(move);
+	game.nextPlayer();
+	assertEquals(player2,game.getCurrentPlayer());
+    assertFalse(game.gameOver());
+    
+    fromLoc = new Location(7, 5);
+    toLoc = new Location(7, 3);
+	move = new BlobLocation(fromLoc, toLoc);
+	assertTrue(game.validMove(move));
+	game.makeMove(move);
+	game.nextPlayer();
+	assertEquals(player1,game.getCurrentPlayer());
+    assertFalse(game.gameOver());
+
+    fromLoc = new Location(4, 0);
+    toLoc = new Location(6, 0);
+	move = new BlobLocation(fromLoc, toLoc);
+	assertTrue(game.validMove(move));
+	game.makeMove(move);
+	game.nextPlayer();
+	assertEquals(player2,game.getCurrentPlayer());
+    assertFalse(game.gameOver());
+
+    fromLoc = new Location(7, 3);
+    toLoc = new Location(7, 1);
+	move = new BlobLocation(fromLoc, toLoc);
+	assertTrue(game.validMove(move));
+	game.makeMove(move);
+	game.nextPlayer();
+	assertEquals(player1,game.getCurrentPlayer());
+    assertTrue(game.gameOver());
+	}
+
 	
 	// @Test
 	// void testRestart() {
