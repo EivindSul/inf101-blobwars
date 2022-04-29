@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import inf101.grid.BlobLocation;
-// import inf101.grid.Grid;
-import inf101.grid.GridDirection;
 import inf101.grid.Location;
 import inf101.sem2.GUI.Graphics;
 import inf101.sem2.game.Game;
@@ -101,6 +99,10 @@ public class BlobWars extends Game<BlobLocation> {
 		return true;
 	}
 
+	/**
+	 * @param move - Bloblocation Object for which move to make. If the move is 2 long, it moves the tile.
+	 * If the move is just 1 tile, it copies the piece. Also flips all enemies neighboring the newly placed tile.
+	 */
 	@Override
 	public void makeMove(BlobLocation move) {
 		if (!validMove(move))
@@ -125,6 +127,7 @@ public class BlobWars extends Game<BlobLocation> {
 		displayBoard();
 	}
 
+	// Returns true if a move is not to a neighboring tile. Does NOT check if a move is too long
     private boolean isLongMove(BlobLocation move){
         if (move.getLocFrom().allNeighbors().contains(move.getLocTo())){
             return false;
@@ -132,11 +135,15 @@ public class BlobWars extends Game<BlobLocation> {
         else return true;
     }
 
+	/**
+	 * 
+	 * @param loc - A location for which to check neighboring tiles
+	 * @return A list conatining all the neighboring tiles that belong to the opponent.
+	 */
     private List<Location> getOpponentNeighbors(Location loc){
-        Location location = loc;
+		Collection<Location> allNeighbors = loc.allNeighbors();
         List<Location> enemyNeighbors = new ArrayList<Location>();
-        for (GridDirection dir : GridDirection.EIGHT_DIRECTIONS) {
-            Location neighbor = location.getNeighbor(dir);
+        for (Location neighbor : allNeighbors) {
             if (isOpponent(neighbor)){
                 enemyNeighbors.add(neighbor);
             }
@@ -163,6 +170,9 @@ public class BlobWars extends Game<BlobLocation> {
 	}
 
 	// Got help from Brage Aasen, baa027
+	/**
+	 * @return A list of BlobLocations for all valid moves currently on the board.
+	 */
 	@Override
 	public List<BlobLocation> getPossibleMoves() {
 		List<BlobLocation> moves = new ArrayList<>();

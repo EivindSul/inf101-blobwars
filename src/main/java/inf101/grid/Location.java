@@ -2,7 +2,6 @@ package inf101.grid;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * This class represents a Location on a grid.
