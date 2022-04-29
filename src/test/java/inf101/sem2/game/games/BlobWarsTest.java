@@ -163,26 +163,29 @@ class BlobWarsTest extends TestGame{
 	}
 
 	
-	// @Test
-	// void testRestart() {
-	// 	game.makeMove(new Location(4,2));
-	// 	assertEquals(player1,getPlayer(4,2));
-	// }
+	@Test
+	void testRestart() {
+        Location fromLoc = new Location(0, 0);
+        Location toLoc = new Location(2, 0);
+        BlobLocation move = new BlobLocation(fromLoc, toLoc);
+		game.makeMove(move);
+		assertEquals(player1,getPlayer(2, 0));
+	}
 	
-	// Player getPlayer(int row, int col) {
-	// 	return game.getGameBoard().get(new Location(4,2));
-	// }
+	Player getPlayer(int row, int col) {
+		return game.getGameBoard().get(new Location(row, col));
+	}
 	
-	// @Test
-	// void testFirstMoveNumPieces() {
-	// 	Location loc = player1.getMove(game);
-	// 	game.makeMove(loc);
-	// 	game.nextPlayer();
-	// 	assertEquals(4,game.getGameBoard().countPieces(player1));
-	// 	assertEquals(1,game.getGameBoard().countPieces(player2));
-	// 	loc = player2.getMove(game);
-	// 	game.makeMove(loc);
-	// 	assertEquals(3,game.getGameBoard().countPieces(player1));
-	// 	assertEquals(3,game.getGameBoard().countPieces(player2));
-	// }
+	@Test
+	void testFirstMoveNumPieces() {
+		BlobLocation move = player1.getMove(game);
+		game.makeMove(move);
+		game.nextPlayer();
+		assertEquals(3, game.getGameBoard().countPieces(player1));
+		assertEquals(2, game.getGameBoard().countPieces(player2));
+		move = player2.getMove(game);
+		game.makeMove(move);
+		assertEquals(3, game.getGameBoard().countPieces(player1));
+		assertEquals(3, game.getGameBoard().countPieces(player2));
+	}
 }

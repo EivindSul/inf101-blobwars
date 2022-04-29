@@ -9,6 +9,7 @@ import inf101.sem2.game.games.ConnectFour;
 import inf101.sem2.game.games.Othello;
 import inf101.sem2.game.games.TicTacToe;
 import inf101.sem2.player.Player;
+import inf101.sem2.player.ai.AlphaBetaPlayer;
 import inf101.sem2.player.ai.DumbPlayer;
 import inf101.sem2.player.human.ConsolePlayer;
 
@@ -55,8 +56,16 @@ public class TerminalMenu {
 				players.add(new ConsolePlayer('O'));
 				break;
 			case 2:
-				// players.add(new MiniMaxPlayer('O', 5));
-				players.add(new DumbPlayer('O'));
+				System.out.println("Type a number to choose AI difficulty\n(Type 0 to get Dumb Player)");
+				int aiDifficultyChoice = TerminalInput.readInt(new Scanner(System.in));
+				if(aiDifficultyChoice == 0){
+					System.out.println("Adding Dumb Player...");
+					players.add(new DumbPlayer('O'));
+				} else {
+					System.out.println("Adding AlphaBeta Player level " + aiDifficultyChoice);
+					players.add(new AlphaBetaPlayer('O', aiDifficultyChoice));
+				}
+
 				break;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + multiplayerChoice);
