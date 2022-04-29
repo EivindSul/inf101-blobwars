@@ -138,9 +138,50 @@ public class MainMenu implements ActionListener {
 			players.add(new GuiPlayer('O', input));
 		} else {
 			// make AI
-			// TODO: prompt for level of intelligence in AI player
-			players.add(new AlphaBetaPlayer('O', 9));
-			// players.add(new DumbPlayer('O'));
+
+			String[] possibilities = { "Dumb Player", "AlphaBeta level 0", "AlphaBeta level 5", "AlphaBeta level 10", "AlphaBeta level 15", "AlphaBeta level 20", "AlphaBeta level 25" };
+			String s = (String) JOptionPane.showInputDialog(
+					null,
+					"Welcome:\n" + "Select AI difficulty",
+					"MKGame StartUp",
+					JOptionPane.PLAIN_MESSAGE,
+					null,
+					possibilities,
+					null);
+		
+			if ((s != null) && (s.length() > 0)) {
+				System.out.println("Received " + s);
+				switch (s) {
+					case "Dumb Player":
+						System.out.println("creating new DumbPlayer...");
+						players.add(new DumbPlayer('O'));
+						break;
+					case "AlphaBeta level 0":
+						System.out.println("creating new AlphaBetaPlayer...");
+						players.add(new AlphaBetaPlayer('O', 0));
+						break;
+					case "AlphaBeta level 5":
+						System.out.println("creating new AlphaBetaPlayer...");
+						players.add(new AlphaBetaPlayer('O', 5));
+						break;
+					case "AlphaBeta level 10":
+						System.out.println("creating new AlphaBetaPlayer...");
+						players.add(new AlphaBetaPlayer('O', 10));
+						break;
+					case "AlphaBeta level 15":
+						System.out.println("creating new AlphaBetaPlayer...");
+						players.add(new AlphaBetaPlayer('O', 15));
+						break;
+					case "AlphaBeta level 20":
+						System.out.println("creating new AlphaBetaPlayer...");
+						players.add(new AlphaBetaPlayer('O', 20));
+						break;
+					case "AlphaBeta level 25":
+						System.out.println("creating new AlphaBetaPlayer...");
+						players.add(new AlphaBetaPlayer('O', 25));
+						break;
+				}
+			}
 		}
 		return players;
 	}
@@ -202,8 +243,6 @@ public class MainMenu implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-
 		}
 	}
-
 }

@@ -159,7 +159,7 @@ public class BlobWars extends Game<BlobLocation> {
 		return nPlayerPieces - otherPiecesSum;
 	}
 
-	// Got help from Brage Aasen,
+	// Got help from Brage Aasen, baa027
 	@Override
 	public List<BlobLocation> getPossibleMoves() {
 		List<BlobLocation> moves = new ArrayList<>();
@@ -170,7 +170,7 @@ public class BlobWars extends Game<BlobLocation> {
                 if (validMove(moved)) {
                     moves.add(moved);
                 }
-				Collection<Location> neighbors2 = fromLoc.allNeighbors();
+				Collection<Location> neighbors2 = toLoc.allNeighbors();
 
 				for (Location toLoc2 : neighbors2){
 					moved = new BlobLocation(fromLoc, toLoc2);
