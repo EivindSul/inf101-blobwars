@@ -3,6 +3,7 @@ package inf101.sem2.game.games;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -82,24 +83,20 @@ class BlobWarsTest extends TestGame{
 
 		}
 	
-	// @Test
-	// void testMakeMove() {
-	// 	Location move = new Location(5,3);
-	// 	assertTrue(game.validMove(move));
-	// 	game.makeMove(move);
-	// 	game.nextPlayer();
-	// 	assertEquals(player1, game.getGameBoard().get(move));
-	// 	assertEquals(player1, game.getGameBoard().get(new Location(4,3)));
-	// 	assertEquals(player2, game.getCurrentPlayer());
-	// }
+	@Test
+	void testMakeMove() {
+        game.nextPlayer();
+        Location fromLoc = new Location(7, 7);
+        Location toLoc = new Location(5, 7);
+		BlobLocation move = new BlobLocation(fromLoc, toLoc);
+		assertTrue(game.validMove(move));
+		game.makeMove(move);
+		game.nextPlayer();
+		assertEquals(player2, game.getGameBoard().get(toLoc));
+		assertEquals(player2, game.getGameBoard().get(new Location(5,7)));
+		assertEquals(player1, game.getCurrentPlayer());
+	}
 	
-	// @Test
-	// void testGetPossibleMoves() {
-	// 	List<Location> moves = game.getPossibleMoves();
-	// 	for(Location loc : game.getGameBoard().locations()) {
-	// 		assertEquals(game.validMove(loc), moves.contains(loc));
-	// 	}
-	// }
 	
 	// @Test
 	// void testCopy() {
